@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
 
-         validates :nickname, presence: true, length: { maximum: 6 }
+         validates :nickname, presence: true
          
           validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: 'Full-width characters' }
           validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: 'Full-width characters' }
@@ -18,6 +18,6 @@ class User < ApplicationRecord
          PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze      
          validates_format_of :password, with: PASSWORD_REGEX, message:'Include both letters and numbers'
          
-         validates :email, uniqueness: true
+         validates :email, uniqueness: { case_sensitive: true }
          
         end
