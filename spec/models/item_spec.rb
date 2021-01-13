@@ -3,9 +3,15 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   describe '#create' do
   before do
-    @item = FactoryBot.build(:item)
+     @item = FactoryBot.build(:item)
+    
   end
   context '新規登録できるとき' do
+  
+  it "title,text,category_id,state_id,address_id,delivery_charge_id,delivery_day_id,user_id,priceが存在する時登録できる" do   
+    binding.pry
+    expect(@item).to be_valid
+  end
   end
   
   context '新規登録できないとき' do
@@ -103,7 +109,7 @@ RSpec.describe Item, type: :model do
     expect(@item.errors.full_messages).to include("Price must be greater than 299")
      end
     it "10,000,000以上では登録できないこと"do
-    @item.price = "10000000"
+    @item.price = 10000000
     @item.valid?
     expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
      end
