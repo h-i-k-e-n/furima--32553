@@ -1,5 +1,8 @@
-
-    <div class="message-user">
-      <%= link_to image_tag(item).image, class: :card__img ) if message.image.attached? %>
+<div class="item-contents">
+    <span><%= image_tag item.image.variant(resize: '200x200'), class: 'item-img' %></span>
+    <div class="item"><div><%= item.title %></div>
+     
+        <div><span class="item-"><%= item.price %></span></div>
+       
     </div>
-  
+  </div>
