@@ -1,6 +1,7 @@
 require 'rails_helper'
 RSpec.describe User, type: :model do
   before do
+    association :item
     @user = FactoryBot.build(:user)
   end
 
@@ -8,10 +9,20 @@ RSpec.describe User, type: :model do
     context '新規登録できるとき' do
       it "nicknameとemail、passwordとpassword_confirmation、first_nameとlast_name,first_name_kanaとlast_name_kana、birth_dateが存在すれば登録できる" do
      
+        @user.password = "aaa111"
+      @user.first_name_kana = "あ"
+      @user.last_name_kana = "あ"
+      @user.first_name = "あ"
+      @user.last_name = "あ"
       expect(@user).to be_valid
       end
-      it "nicknameが6文字以下であれば登録できる" do
-      @user.nickname = "aaaaaa"
+      it "passwordが半角英数字混合であれば登録できる" do
+
+      @user.password = "aaa111"
+      @user.first_name_kana = "あ"
+      @user.last_name_kana = "あ"
+      @user.first_name = "あ"
+      @user.last_name = "あ"
       expect(@user).to be_valid
       end
     
@@ -68,23 +79,62 @@ end
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
-    it "nicknameが7文字以上では登録できない" do
-      @user.nickname = "aaaaaaa"
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Nickname is too long (maximum is 6 characters)")
-    end
     it "重複したemailが存在する場合登録できない" do
+      @user.email = "w@w"
+      @user.password = "aaa111"
+      @user.first_name_kana = "あ"
+      @user.last_name_kana = "あ"
+      @user.first_name = "あ"
+      @user.last_name = "あ"
+      @user.valid?
+      
       @user.save
-      another_user = FactoryBot.build(:user)
-      another_user.email = @user.email
-      another_user.valid?
-      expect(another_user.errors.full_messages).to include("Email has already been taken")
-    end
+
+      
+  another_user = FactoryBot.build(:user)
+  another_user.email = @user.email
+  another_user.valid?
+  expect(another_user.errors.full_messages).to include("Email has already been taken")
+end
+      
+      
     it "passwordとpassword_confirmationの内容が一致しなければ登録できない" do
       @user.password = "00000"
       @user.password_confirmation = "aaaaa"
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+    it "first_nameが半角入力では登録できない" do
+      @user.first_name = "w"
+  @user.valid?
+  expect(@user.errors.full_messages).to include("First name Full-width characters")
+    end
+    it "last_nameが半角入力では登録できない" do
+      @user.first_name = "あ"
+      @user.last_name = "w"
+  @user.valid?
+  expect(@user.errors.full_messages).to include("Last name Full-width characters")
+    end
+
+    it "first_name_kanaが半角入力では登録できない" do
+      @user.password = "111qqq"
+      @user.first_name = "あ"
+      @user.last_name = "あ"
+      @user.first_name_kana = "w"
+      @user.last_name_kana = "あ"
+      
+  @user.valid?
+  expect(@user.errors.full_messages).to include("First name kana Full-width katakana characters")
+    end
+    
+    it "last_name_kanaが半角入力では登録できない" do
+      @user.password = "111qqq"
+      @user.first_name = "あ"
+      @user.last_name = "あ"
+      @user.first_name_kana = "あ"
+      @user.last_name_kana = "w"
+  @user.valid?
+  expect(@user.errors.full_messages).to include("Last name kana  Full-width katakana characters")
     end
   end
 end
