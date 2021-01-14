@@ -9,7 +9,12 @@ class ItemsController < ApplicationController
   end
 
   def create
+<<<<<<< Updated upstream
     @item = Item.new(item_params)
+=======
+    @item = Item.create(item_params)
+    
+>>>>>>> Stashed changes
     if @item.save
       redirect_to controller: :items, action: :index
     else
