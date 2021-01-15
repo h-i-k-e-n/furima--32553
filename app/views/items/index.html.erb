@@ -124,7 +124,7 @@
   <div class='item-contents'>
     <h2 class='title'>ピックアップカテゴリー</h2>
     <%= link_to '新規投稿商品', new_item_path, class: "subtitle" %>
-    <%= render partial: "item", collection: @item %>
+    
     <ul class='item-lists'>
 
       <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
@@ -153,11 +153,13 @@
           </div>
         </div>
         <% end %>
-         <li class='item-lists'>
+         <div class='item'>
+         <% if @items[0] != nil %>
           <% @items.each do |item| %>
           <%= render partial: "item", locals: { item: item } %>
           
-          </li>
+          </div>
+      <% end %>
       <% end %>
       </li>
       <%# //商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>

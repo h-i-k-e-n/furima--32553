@@ -241,7 +241,7 @@ a {
   width: 100vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex;
 }
 
 .item-lists>.list {
@@ -250,6 +250,9 @@ a {
   background-color: #FFF;
 }
 
+.item{
+  margin: 0 auto;
+}
 
 .item-img-content {
   position: relative;
