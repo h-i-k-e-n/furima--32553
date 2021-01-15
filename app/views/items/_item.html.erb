@@ -1,9 +1,14 @@
 
 <div  class='item-contents'>
-    <%= image_tag item.image.variant(resize: '200x200'), class: 'item-img' %>
-    <h3 class='item-name'><div><%= item.title %></h3>
+    <%= link_to image_tag(item.image, class: :item_img),item_path(item), method: :get %>
+    
+      <%# <div class='sold-out'> %>
+        <%# <span>Sold Out!!</span> %>
+      <%# </div> %>
      
-        <div><span class='item-price'><%= item.price %></span></div>
+    <h3 class='item-name'><div><%=link_to item.title  ,item_path(item), method: :get%></h3>
+     
+        <div><span class='item-price'><%=link_to "#{item.price}円", item_path(item), method: :get %></span></div>
        
     </div>
   </div>
