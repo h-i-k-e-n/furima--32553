@@ -1,8 +1,10 @@
-<div class="item-contents">
-    <span><%= image_tag item.image.variant(resize: '200x200'), class: 'item-img' %></span>
-    <div class="item"><div><%= item.title %></div>
+
+<div  class='item'>
+    <%= image_tag item.image.variant(resize: '200x200'), class: 'item-img' %>
+    <h3 class='item-name'><div><%= item.title %></h3>
      
-        <div><span class="item-"><%= item.price %></span></div>
+        <div><span class='item-price'><%= item.price %></span></div>
        
     </div>
   </div>
+  
