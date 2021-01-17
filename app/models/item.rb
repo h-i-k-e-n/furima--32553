@@ -13,4 +13,5 @@ validates :category_id, :state_id, :address_id, :delivery_charge_id, :delivery_d
   belongs_to :delivery_day
   belongs_to :user
   has_one_attached :image
+  has_one :order
 end
