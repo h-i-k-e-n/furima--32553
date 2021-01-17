@@ -39,6 +39,15 @@ class ItemsController < ApplicationController
   end
   
 
+<<<<<<< Updated upstream
+=======
+  def destroy 
+        @item.destroy
+        redirect_to root_path 
+    end
+  end
+
+>>>>>>> Stashed changes
   private
   def item_params
     params.require(:item).permit(:title, :price, :text, :category_id, :state_id, :address_id, :delivery_charge_id, :delivery_day_id, :image).merge(user_id: current_user.id)
