@@ -4,6 +4,8 @@ class OrdersController < ApplicationController
   
 
   def new
+    
+      
       if current_user.id ==  @item.user_id && @item.order != nil
           redirect_to root_path  
 
@@ -16,6 +18,8 @@ class OrdersController < ApplicationController
     end
   
   def create
+   
+   
     @order_consumer = OrderConsumer.new(order_params)
     
     if @order_consumer.valid?
@@ -37,7 +41,7 @@ class OrdersController < ApplicationController
   end
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
   end
 
   def pay_item

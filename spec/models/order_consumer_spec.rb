@@ -17,6 +17,11 @@ RSpec.describe OrderConsumer, type: :model do
       @order_consumer.valid?
       expect(@order_consumer.errors.full_messages).to include("Postal code can't be blank")
     end
+    it 'postal_code にハイフンの入力が空だと保存できないこと' do
+      @order_consumer.postal_code = '00000000'
+      @order_consumer.valid?
+      expect(@order_consumer.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+    end
     it 'address_id が空だと保存できないこと' do
       @order_consumer.address_id = nil
       @order_consumer.valid?
@@ -41,6 +46,11 @@ RSpec.describe OrderConsumer, type: :model do
         @order_consumer.tel_number = 'あ'
         @order_consumer.valid?
         expect(@order_consumer.errors.full_messages).to include("Tel number Input only number")
+      end
+      it 'tel_numberが11桁以上の入力だと保存できないこと' do
+        @order_consumer.tel_number = '000000000000'
+        @order_consumer.valid?
+        expect(@order_consumer.errors.full_messages).to include("Tel number is too long (maximum is 11 characters)")
     end
     it 'token  が空だと保存できないこと' do
       @order_consumer.token = nil
