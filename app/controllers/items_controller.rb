@@ -1,54 +1,57 @@
 class ItemsController < ApplicationController
-
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
+
+  def index
+    @items = Item.includes(:user).order('created_at DESC')
   
- def index
-   @items = Item.includes(:user).order("created_at DESC")
- end
+  end
 
- def new
-   @item = Item.new
- end
+  def new
+    @item = Item.new
+  end
 
- def create
-   @item = Item.new(item_params) 
-   if @item.save
-     redirect_to root_path
-   else
-     render :new
-   end 
- end
+  def create
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
 
- def show
- end
- 
- def edit
+  def show
+  end
+
+  def edit
+    if current_user.id ==  @item.user_id
+      redirect_to root_path 
+    end
     redirect_to root_path unless current_user == @item.user
- end
+  end
 
- def update
-   if  @item.update(item_params)
-       redirect_to item_path(@item)
-   else
-    render :edit
-   end
- end
- 
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
 
- def destroy 
+  def destroy
     redirect_to root_path unless current_user == @item.user
     @item.destroy
     redirect_to root_path
- end
+  end
 
- private
- def item_params
-   params.require(:item).permit(:title, :price, :text, :category_id, :state_id, :address_id, :delivery_charge_id, :delivery_day_id, :image).merge(user_id: current_user.id)
- end
+  private
 
- def set_item
-   @item = Item.find(params[:id])
- end
-   
- end
+  def item_params
+    params.require(:item).permit(:title, :price, :text, :category_id, :state_id, :address_id, :delivery_charge_id,
+                                 :delivery_day_id, :image).merge(user_id: current_user.id)
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+end
