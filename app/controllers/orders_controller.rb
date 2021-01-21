@@ -9,11 +9,10 @@ class OrdersController < ApplicationController
   def new
     
       @item = Item.find(params[:item_id]) 
-      if current_user.id ==  @item.user_id
+      if current_user.id ==  @item.user_id && @item.order != nil
           redirect_to root_path  
 
-      elsif @item.order != nil
-            redirect_to root_path 
+     
             
       else
         @order_consumer = OrderConsumer.new
