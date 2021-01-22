@@ -8,15 +8,31 @@ RSpec.describe OrderConsumer, type: :model do
   end
   
   describe '商品購入登録' do
+    context '購入できるとき' do
     it "すべての値が正しく入力されていれば保存できること" do
       expect(@order_consumer).to be_valid
     end
-    
+    it "建物名が抜けていても登録できること" do
+      @order_consumer.building_name = nil
+      expect(@order_consumer).to be_valid
+    end
     it 'postal_code が空だと保存できないこと' do
       @order_consumer.postal_code = nil
       @order_consumer.valid?
       expect(@order_consumer.errors.full_messages).to include("Postal code can't be blank")
     end
+  end
+    context '購入できないとき' do
+      it 'user_id の入力が空だと保存できないこと' do
+        @order_consumer.postal_code = nil
+        @order_consumer.valid?
+        expect(@order_consumer.errors.full_messages).to include("")
+      end
+      it 'item_id の入力が空だと保存できないこと' do
+        @order_consumer.postal_code = nil
+        @order_consumer.valid?
+        expect(@order_consumer.errors.full_messages).to include("")
+      end
     it 'postal_code にハイフンの入力が空だと保存できないこと' do
       @order_consumer.postal_code = '00000000'
       @order_consumer.valid?
@@ -58,4 +74,5 @@ RSpec.describe OrderConsumer, type: :model do
       expect(@order_consumer.errors.full_messages).to include("Token can't be blank")
     end
   end
+end
 end
