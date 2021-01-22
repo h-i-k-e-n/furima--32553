@@ -1,4 +1,4 @@
-const pay = () => {
+ const pay = () => {
 
   const PAYJP_PUBLIC_KEY = process.env.PAYJP_PUBLIC_KEY
   Payjp.setPublicKey(PAYJP_PUBLIC_KEY);
