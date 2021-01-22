@@ -4,15 +4,14 @@ class OrderConsumer
 
   attr_accessor :item_id, :user_id, :postal_code, :address_id, :city, :address, :building_name, :tel_number, :token ,:order_id
   
-
-  validates :token, presence: true
-  validates :city, presence: true
-  validates :address, presence: true
-  validates :address_id, presence: true, numericality: { other_than: 1 }
-  validates :tel_number, presence: true, numericality: { only_interger: true,  message: 'Input only number' }, length: {maximum: 11}
-  validates :postal_code, presence: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
-
-  
+  with_options presence: true do
+  validates :token
+  validates :city
+  validates :address
+  validates :address_id, numericality: { other_than: 1 }
+  validates :tel_number, ¥ numericality: { only_interger: true,  message: 'Input only number' }, length: {maximum: 11}
+  validates :postal_code,  format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
+  end
  
   def save
     

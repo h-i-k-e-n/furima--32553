@@ -4,7 +4,7 @@ FactoryBot.define do
     address_id                { 2}
     city                    {'高山市'}
     address                 { '児玉3-2' }
-    building_name            {'' }
+    building_name            {'建物ビルジング' }
     tel_number            {'09087654321'}
     token                    { 'lp'}
   end
