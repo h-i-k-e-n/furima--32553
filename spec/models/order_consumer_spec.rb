@@ -16,13 +16,14 @@ RSpec.describe OrderConsumer, type: :model do
       @order_consumer.building_name = nil
       expect(@order_consumer).to be_valid
     end
-    it 'postal_code が空だと保存できないこと' do
-      @order_consumer.postal_code = nil
-      @order_consumer.valid?
-      expect(@order_consumer.errors.full_messages).to include("Postal code can't be blank")
-    end
+    
   end
     context '購入できないとき' do
+      it 'postal_code が空だと保存できないこと' do
+        @order_consumer.postal_code = nil
+        @order_consumer.valid?
+        expect(@order_consumer.errors.full_messages).to include("Postal code can't be blank")
+      end
       it 'user_id の入力が空だと保存できないこと' do
         @order_consumer.postal_code = nil
         @order_consumer.valid?
