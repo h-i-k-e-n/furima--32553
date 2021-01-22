@@ -25,14 +25,14 @@ RSpec.describe OrderConsumer, type: :model do
         expect(@order_consumer.errors.full_messages).to include("Postal code can't be blank")
       end
       it 'user_id の入力が空だと保存できないこと' do
-        @order_consumer.postal_code = nil
+        @order_consumer.user_id = nil
         @order_consumer.valid?
-        expect(@order_consumer.errors.full_messages).to include("")
+        expect(@order_consumer.errors.full_messages).to include("User can't be blank")
       end
       it 'item_id の入力が空だと保存できないこと' do
-        @order_consumer.postal_code = nil
+        @order_consumer.item_id = nil
         @order_consumer.valid?
-        expect(@order_consumer.errors.full_messages).to include("")
+        expect(@order_consumer.errors.full_messages).to include("Item can't be blank")
       end
     it 'postal_code にハイフンの入力が空だと保存できないこと' do
       @order_consumer.postal_code = '00000000'
