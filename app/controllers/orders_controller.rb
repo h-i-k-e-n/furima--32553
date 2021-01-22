@@ -4,18 +4,17 @@ class OrdersController < ApplicationController
   
 
   def new
-    
-      
-      if current_user.id ==  @item.user_id && @item.order != nil
-          redirect_to root_path  
+    unless @item.order == nil
+      redirect_to  root_path
+    if current_user.id ==  @item.user_id 
+          
+      root_path  and return
 
-     
-            
-      else
+     else
         @order_consumer = OrderConsumer.new
       end
-  
     end
+  end
   
   def create
    
