@@ -28,7 +28,7 @@ RSpec.describe OrderConsumer, type: :model do
         @order_consumer.user_id = nil
         @order_consumer.valid?
         expect(@order_consumer.errors.full_messages).to include("User can't be blank")
-      end
+       end
       it 'item_id の入力が空だと保存できないこと' do
         @order_consumer.item_id = nil
         @order_consumer.valid?
